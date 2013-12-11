@@ -7,6 +7,8 @@
 	<!-- bootstrap-3.0.2/dist/css/bootstrap.min.css -->
 	<link href="dist/css/bootstrap.min.css" rel="stylesheet">
 
+	<link rel="stylesheet" type="text/css" href="format.css">
+
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
@@ -28,9 +30,8 @@
 
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li><a href="#">Subir fotos</a></li>
-				<li><a href="#">Fotos</a></li>
-			</ul>
+				<li><a href="#subir" data-toggle="modal">Subir fotos</a></li>
+				<li><a href="#" id="fotos">Fotos</a></li>
 			<form class="navbar-form navbar-left" role="search">
 				<div class="form-group">
 					<input type="text" class="form-control" placeholder="Search">
@@ -56,9 +57,49 @@
 			</ul>
 		</div><!--/.navbar-collapse -->
 	</nav><!-- main nav-bar -->
+
+	<div class="modal fade" id="subir" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<p>Subir archivos</p>
+				</div>
+				<div class="modal-body">
+					<span class="btn btn-default btn-file">
+						Browse <input type="file">
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+	<script type="text/javascript" src="bootstrap-filestyle.min.js"></script>
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="jquery-1.10.2.min.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="dist/js/bootstrap.min.js"></script>
+
+	<script type="text/javascript">
+		console.log("first example");
+		$(document)
+			.on('change', '.btn-file :file', function() {
+				var input = $(this),
+					numFiles = input.get(0).files ? input.get(0).files.length : 1,
+					label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+				input.trigger('fileselect', [numFiles, label]);
+		});
+	</script>
+
+	<script type="text/javascript">
+		console.log("second");
+		$(document).ready( function() {
+			$('.btn-file :file').on('fileselect', function(event, numFiles, label) {
+				console.log(event);
+				console.log(numFiles);
+				console.log(label);
+			});
+		});
+	</script>
 </body>
 </html>
